@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=./common.sh
+source "${DIR}/common.sh"
+mkdir -p "$artifacts_dir"
+rm -rf "$artifacts_dir/lambda.zip"
+
+cd "$DIR/../"
+zip -9 "$artifacts_dir/lambda.zip" "./aws_simple_websocket/"*

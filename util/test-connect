@@ -1,0 +1,12 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR"
+if ! command -v "websocat" >/dev/null 2>&1; then
+    echo "This little utility is using 'websocat' to test websockets. See https://github.com/vi/websocat" >&2
+    exit 1
+fi
+
+cd "../deployment"
+url="$(terraform output --raw ws_url)"
+
+websocat -v "$url"
