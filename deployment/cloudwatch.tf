@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_group" "api_gw" {
 }
 
 # Create log group here so we can set retention and can clean it up.
-resource "aws_cloudwatch_log_group" "mangum_logs" {
+resource "aws_cloudwatch_log_group" "lambda_main" {
   name              = "/aws/lambda/${local.app_name_full}"
   retention_in_days = 7
 }

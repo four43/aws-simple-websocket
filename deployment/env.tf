@@ -1,8 +1,9 @@
 locals {
   app_name = "simple-websocket-testing"
-  env = terraform.workspace
+  env      = terraform.workspace
 
   app_name_full = "${local.app_name}-${local.env}"
+  unique_prefix = "four43"
 }
 
 locals {
@@ -10,7 +11,9 @@ locals {
     dev = {
       # For Region Wide API Gateway logging. Solves:
       # https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudwatch-logs/
-      init_api_gw_logging_role = true
+      init_api_gw_logging_role     = true
+      connection_store_bucket_name = "${local.unique_prefix}-${local.app_name_full}"
+      connection_store_prefix      = "active-connections"
     }
   }
   config = local.env_config[local.env]
