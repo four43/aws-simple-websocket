@@ -37,7 +37,19 @@ Some additional resources are needed:
 
 1. **IAM** - Permissions to glue everything together
 
+## Deployment
+
+This demo repo uses Terraform to manage cloud resources. These are all stored in the `./deployment` repository.
+**NOTE:** Creating resources in AWS may incur charges to your account. Ensure you have billing alarms setup and
+understand AWS costs. This demo repo should cost almost nothing, however.
+
+1. [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+1. Change to `./deployment` directory
+1. Init Terraform (`terraform init`)
+1. It's best practice to use "Workspaces" to namespace resources in terraform for different environments, so create
+   a `dev` workspace (`terraform workspace new dev`)
+1. Create the resources `terraform apply`
 
 ## Improvements
 
- 1. Move from `print()` to `logging` module, for the sake of keeping this really simple, I left print in there
+1. Move from `print()` to `logging` module, for the sake of keeping this really simple, I left print in there

@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "lambda_rw_connection_store" {
       "s3:DeleteObject"
     ]
     resources = [
-      "arn:aws:s3:::${local.config.connection_store_bucket_name}/${local.config.connection_store_prefix}/*",
+      "arn:aws:s3:::${aws_s3_bucket.connection_store.bucket}/${local.connection_store_prefix}/*",
     ]
   }
   # List all of the Websocket connection ID objects
@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "lambda_rw_connection_store" {
       "s3:ListBucket",
     ]
     resources = [
-      "arn:aws:s3:::${local.config.connection_store_bucket_name}",
+      "arn:aws:s3:::${aws_s3_bucket.connection_store.bucket}",
     ]
   }
 

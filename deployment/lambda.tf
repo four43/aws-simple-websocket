@@ -11,7 +11,7 @@ resource "aws_lambda_function" "main" {
   environment {
     variables = {
       CONNECTION_STORE_BUCKET_NAME = aws_s3_bucket.connection_store.bucket
-      CONNECTION_STORE_PREFIX      = local.config.connection_store_prefix
+      CONNECTION_STORE_PREFIX      = local.connection_store_prefix
       EXECUTE_API_ENDPOINT         = replace(aws_apigatewayv2_stage.lambda.invoke_url, "wss://", "https://")
     }
   }
