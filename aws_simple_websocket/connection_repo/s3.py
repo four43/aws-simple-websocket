@@ -30,7 +30,7 @@ class S3ConnectionRepo(AbstractConnectionRepo):
         Removes a `connection_id` from the store by deleting the S3 Object with that key. Don't throw, this should act
         as desired state. If it's already gone, fair enough.
         """
-        self.bucket.delete_objects(Delete={"Objects": [{"Key": connection_id}]})
+        self.bucket.delete_objects(Delete={"Objects": [{"Key": f"{self.prefix}/{connection_id}"}]})
 
     def list_all(self) -> Iterator[str]:
         """

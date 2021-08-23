@@ -2,6 +2,8 @@ import json
 from dataclasses import dataclass
 from typing import Any, Dict
 
+import botocore
+
 from aws_simple_websocket.connection_repo.abstract_connection_repo import (
     AbstractConnectionRepo,
 )
@@ -43,10 +45,13 @@ class WebsocketRouter:
         # Send this message to all of our open clients
         for connection_id in self.websocket_connection_repo.list_all():
             print(f"Sending to {connection_id}")
-            self.api_gateway_management_api_client.post_to_connection(
-                ConnectionId=connection_id,
-                Data=json.dumps(message).encode("utf-8"),
-            )
+            try:
+                self.api_gateway_management_api_client.post_to_connection(
+                    ConnectionId=connection_id,
+                    Data=json.dumps(message).encode("utf-8"),
+                )
+            except self.api_gateway_management_api_client.exceptions.GoneException:
+                self.websocket_connection_repo.delete(connection_id)
 
     def connect_controller(self, event, context):
         """
