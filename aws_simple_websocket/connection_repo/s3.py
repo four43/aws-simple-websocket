@@ -36,7 +36,7 @@ class S3ConnectionRepo(AbstractConnectionRepo):
         Returns all of the connections by listing all of the objects in this store. These should all be active but not
         guaranteed.
         """
-        s3_client = self.bucket.s3_resource.meta.client
+        s3_client = self.bucket.meta.client
         paginator = s3_client.get_paginator("list_objects_v2")
         for response in paginator.paginate(Bucket=self.bucket.name, Prefix=self.prefix):
             for s3_object_data in response.get("Contents", []):
