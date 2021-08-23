@@ -4,19 +4,26 @@ from typing import Dict, Any
 
 import boto3
 
+# Setup management client specific to our API Gateway
 # https://github.com/boto/botocore/issues/2218
+from aws_simple_websocket.connection_repo.s3 import S3ConnectionRepo
+
 api_gateway_management_api_client = boto3.client(
     "apigatewaymanagementapi", endpoint_url=os.environ["EXECUTE_API_ENDPOINT"]
 )
 
-s3_resource = boto3.resource("s3")
-s3_bucket = s3_resource.Bucket(os.environ["CONNECTION_STORE_BUCKET_NAME"])
-s3_prefix = os.environ["CONNECTION_STORE_PREFIX"]
+# Instantiate a Connection Repository, that we made, of our choosing. We are using S3 to store connection information,
+# so create one of those objects with our config. This could be further extended to use DynamoDB, Redis, or any other
+# listable Key/Value store. S3 was just the simplest.
+websocket_connection_repo = S3ConnectionRepo(
+    bucket_name=os.environ["CONNECTION_STORE_BUCKET_NAME"],
+    prefix=os.environ["CONNECTION_STORE_PREFIX"],
+)
 
 
-def input_controller(event, context):
+def sns_input_controller(event, context):
     """
-    Handle input from our input SNS topic
+    Handle input from our input SNS topic, broadcast to all clients
     """
     print("Input Data Event!")
     print(json.dumps(event))
@@ -24,17 +31,13 @@ def input_controller(event, context):
     message: Dict[str, Any] = json.loads(event["Records"][0]["Sns"]["Message"])
     print(f"Message to send: {json.dumps(message)}")
 
-    # Get all of our open connections
-    s3_client = s3_resource.meta.client
-    paginator = s3_client.get_paginator("list_objects_v2")
-    for response in paginator.paginate(Bucket=s3_bucket.name, Prefix=s3_prefix):
-        for s3_object_data in response.get("Contents", []):
-            connection_id = s3_object_data["Key"][len(s3_prefix) + 1 :]
-            print(f"Sending to {connection_id}")
-            api_gateway_management_api_client.post_to_connection(
-                ConnectionId=connection_id,
-                Data=json.dumps(message).encode("utf-8"),
-            )
+    # Send this message to all of our open clients
+    for connection_id in websocket_connection_repo.list_all():
+        print(f"Sending to {connection_id}")
+        api_gateway_management_api_client.post_to_connection(
+            ConnectionId=connection_id,
+            Data=json.dumps(message).encode("utf-8"),
+        )
 
 
 def connect_controller(event, context):
@@ -43,10 +46,7 @@ def connect_controller(event, context):
     """
     print("Connect Event")
     print(json.dumps(event))
-    s3_bucket.put_object(
-        Key=f"{s3_prefix}/{event['requestContext']['connectionId']}", Body=b""
-    )
-
+    websocket_connection_repo.save(connection_id=event['requestContext']['connectionId'])
     return {"statusCode": 200}
 
 
@@ -56,26 +56,17 @@ def disconnect_controller(event, context):
     """
     print("Disconnect Event")
     print(json.dumps(event))
-    connection_key = f"{s3_prefix}/{event['requestContext']['connectionId']}"
-    print(f"Removing {connection_key}...")
-    try:
-        result = s3_bucket.delete_objects(
-            Delete={
-                "Objects": [
-                    {"Key": f"{s3_prefix}/{event['requestContext']['connectionId']}"}
-                ]
-            }
-        )
-        print(result)
-    except Exception as err:
-        print(err)
+    connection_id = event['requestContext']['connectionId']
+    print(f"Removing {connection_id}...")
+    websocket_connection_repo.delete(connection_id=connection_id)
 
     return {"statusCode": 200}
 
 
 def handler(event, context):
     if event.get("Records", None) is not None:
-        return input_controller(event, context)
+        # Received SNS event
+        return sns_input_controller(event, context)
     if event.get("requestContext", {}).get("eventType", "") == "CONNECT":
         return connect_controller(event, context)
     elif event.get("requestContext", {}).get("eventType", "") == "DISCONNECT":

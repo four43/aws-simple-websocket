@@ -18,7 +18,7 @@ handle the incoming socket events (**$connect**/**$disconnect**). It will handle
 and to further expand this example, an outside data source via **SNS** topic. The API Gateway requires us to keep track
 of Connection IDs, so we can programmatically and precisely send messages to specific clients.
 
-Using Terraform (in /deployment) the following are created:
+Using Terraform (in `./deployment`) the following are created:
 
 ![Architecture Diagram](./docs/architecture.svg)
 
@@ -36,3 +36,8 @@ Some additional resources are needed:
 1. **CloudWatch** - Logging for API Gateway and Lambda function with retention periods set by default
 
 1. **IAM** - Permissions to glue everything together
+
+
+## Improvements
+
+ 1. Move from `print()` to `logging` module, for the sake of keeping this really simple, I left print in there
