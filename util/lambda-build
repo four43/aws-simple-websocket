@@ -7,4 +7,4 @@ mkdir -p "$artifacts_dir"
 rm -rf "$artifacts_dir/lambda.zip"
 
 cd "$DIR/../"
-zip -9 "$artifacts_dir/lambda.zip" "./aws_simple_websocket/"*
+zip -r9 "$artifacts_dir/lambda.zip" "./aws_simple_websocket/"
