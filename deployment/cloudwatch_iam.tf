@@ -1,4 +1,5 @@
 # For API Gateway Logging: https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudwatch-logs/
+# This is only required once per region
 data "aws_iam_policy_document" "cloudwatch_logging" {
   statement {
     actions = [

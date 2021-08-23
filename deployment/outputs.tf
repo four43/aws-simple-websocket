@@ -1,3 +1,4 @@
+# Store various outputs for quick retrieval from our scripts
 output "ws_url" {
   value = aws_apigatewayv2_stage.lambda.invoke_url
 }

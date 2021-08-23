@@ -3,9 +3,9 @@ resource "aws_apigatewayv2_api" "main" {
   description                = "Websocket on AWS Simple Testing, ${local.env} environment"
   protocol_type              = "WEBSOCKET"
   route_selection_expression = "$request.body.action"
-  # api_key_selection_expression = "$request.header.authorization"
 }
 
+# Use our Lambda function to service requests
 resource "aws_apigatewayv2_integration" "lambda_main" {
   api_id             = aws_apigatewayv2_api.main.id
   integration_uri    = aws_lambda_function.main.invoke_arn
@@ -13,6 +13,7 @@ resource "aws_apigatewayv2_integration" "lambda_main" {
   integration_method = "POST"
 }
 
+# Forward special requests ($connect, $disconnect) to our Lambda function so we can manage their state
 resource "aws_apigatewayv2_route" "_connect" {
   api_id    = aws_apigatewayv2_api.main.id
   route_key = "$connect"
@@ -31,7 +32,7 @@ resource "aws_apigatewayv2_route" "sub_widget" {
   target    = "integrations/${aws_apigatewayv2_integration.lambda_main.id}"
 }
 
-
+# A stage is required to actually "deploy" our API Gateway
 resource "aws_apigatewayv2_stage" "lambda" {
   api_id      = aws_apigatewayv2_api.main.id
   name        = "primary"
@@ -54,6 +55,7 @@ resource "aws_apigatewayv2_stage" "lambda" {
   }
 }
 
+# Allow the API Gateway to invoke Lambda function
 resource "aws_lambda_permission" "api_gw_main_lambda_main" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"

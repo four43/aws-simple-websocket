@@ -1,3 +1,4 @@
+# An SNS topic we can invoke to send messages to our API Gateway connections/Websocket clients
 resource "aws_sns_topic" "input" {
   name = local.app_name_full
 }

@@ -1,3 +1,4 @@
+# Just using local storage for now, if this was deployed somewhere shared you'd want to add a remote store/locking
 terraform {
   required_providers {
     aws = {

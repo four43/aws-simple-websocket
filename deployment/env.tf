@@ -1,3 +1,4 @@
+# Store basic config, use just a dev environment for now
 locals {
   app_name = "simple-websocket-testing"
   env      = terraform.workspace
