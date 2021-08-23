@@ -48,6 +48,10 @@ understand AWS costs. This demo repo should cost almost nothing, however.
 1. Init Terraform (`terraform init`)
 1. It's best practice to use "Workspaces" to namespace resources in terraform for different environments, so create
    a `dev` workspace (`terraform workspace new dev`)
+1. Check if you need to
+   enable [API Gateway Logging](https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudwatch-logs/) in
+   your current region. Feel free to set `./deployment/enf.tf:init_api_gw_logging_role` to false if your account already
+   has this setup
 1. Create the resources `terraform apply`
 
 ## Improvements
