@@ -1,0 +1,22 @@
+{
+	"Records": [
+		{
+			"EventSource": "aws:sns",
+			"EventVersion": "1.0",
+			"EventSubscriptionArn": "arn:aws:sns:us-east-1:082517634284:simple-websocket-testing-dev:c0edad15-b636-43e4-90cc-0d93a6a39624",
+			"Sns": {
+				"Type": "Notification",
+				"MessageId": "09a10504-fa09-5b7c-838c-5c9917b73e72",
+				"TopicArn": "arn:aws:sns:us-east-1:082517634284:simple-websocket-testing-dev",
+				"Subject": null,
+				"Message": "{\"hello\": \"world\"}",
+				"Timestamp": "2021-08-23T18:39:58.232Z",
+				"SignatureVersion": "1",
+				"Signature": "nNaUqNLzMpVpGw/3dvroPHXgu6G5vp6G7LFXh5mQTa5kjyS+FnV+sqevCH2s0H4lj/5GYPXwMzF22M6CXwGWrJZEbp34NWBCS+nZOi2/qh2Avcedy/54TYwqVaWPhxAVEPPjKamhNnyBbo73RSANEho/j1bVIxWG0oQirBwtuKLP1lOp20C9wPbg8Sz3gZytQBvir9nirSYmDDS/FTinvtFKQrKIO3S3XIiCYgkmbLc79kmgBEHPU2Di2tPpbJ/mMJdWNNVyA4YKWRP7HjiypiELdjCd4eRYxvRfIKzGc9kzGpSCGJ23c8rmUfJIzwXz6SegJtfoUwu38UrQLiZ1YA==",
+				"SigningCertUrl": "https://sns.us-east-1.amazonaws.com/SimpleNotificationService-010a507c1833636cd94bdb98bd93083a.pem",
+				"UnsubscribeUrl": "https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:082517634284:simple-websocket-testing-dev:c0edad15-b636-43e4-90cc-0d93a6a39624",
+				"MessageAttributes": { }
+			}
+		}
+	]
+}

@@ -1,0 +1,34 @@
+{
+	"headers": {
+		"Host": "test-api-id.execute-api.us-east-1.amazonaws.com",
+		"x-api-key": "",
+		"X-Forwarded-For": "",
+		"x-restapi": ""
+	},
+	"multiValueHeaders": {
+		"Host": ["test-api-id.execute-api.us-east-1.amazonaws.com"],
+		"x-api-key": [""],
+		"X-Forwarded-For": [""],
+		"x-restapi": [""]
+	},
+	"requestContext": {
+		"routeKey": "$disconnect",
+		"disconnectStatusCode": 1001,
+		"eventType": "DISCONNECT",
+		"extendedRequestId": "EhbxcGz5IAMFwqQ=",
+		"requestTime": "23/Aug/2021:13:56:33 +0000",
+		"messageDirection": "IN",
+		"disconnectReason": "Going away",
+		"stage": "primary",
+		"connectedAt": 1629726319440,
+		"requestTimeEpoch": 1629726993765,
+		"identity": {
+			"sourceIp": "12.34.56.78"
+		},
+		"requestId": "EhbxcGz5IAMFwqQ=",
+		"domainName": "test-api-id.execute-api.us-east-1.amazonaws.com",
+		"connectionId": "EhbxcdD1IAMCLvQ=",
+		"apiId": "test-api-id"
+	},
+	"isBase64Encoded": false
+}

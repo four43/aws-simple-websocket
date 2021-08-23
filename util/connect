@@ -8,5 +8,5 @@ fi
 
 cd "../deployment"
 url="$(terraform output --raw ws_url)"
-
+echo "Connecting to ${url} ..." >&2
 websocat -v "$url"

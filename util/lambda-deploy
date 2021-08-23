@@ -4,15 +4,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # shellcheck source=./common.sh
 source "${DIR}/common.sh"
 
-env="$1"
-if [[ -z "$env" ]]; then
-    echo "Must specify deployment env as first arg" >&2
-    exit 1
-fi
-
 cd "$DIR"
 ./lambda-build
 
 aws lambda update-function-code \
-    --function-name "simple-websocket-testing-$1" \
+    --function-name "$(tf_output lambda_function_name)" \
     --zip-file "fileb://$artifacts_dir/lambda.zip"

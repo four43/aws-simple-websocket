@@ -27,7 +27,8 @@ class S3ConnectionRepo(AbstractConnectionRepo):
 
     def delete(self, connection_id: str):
         """
-        Removes a `connection_id` from the store by deleting the S3 Object with that key
+        Removes a `connection_id` from the store by deleting the S3 Object with that key. Don't throw, this should act
+        as desired state. If it's already gone, fair enough.
         """
         self.bucket.delete_objects(Delete={"Objects": [{"Key": connection_id}]})
 
@@ -36,12 +37,8 @@ class S3ConnectionRepo(AbstractConnectionRepo):
         Returns all of the connections by listing all of the objects in this store. These should all be active but not
         guaranteed.
         """
-        s3_client = self.bucket.meta.client
-        paginator = s3_client.get_paginator("list_objects_v2")
-        for response in paginator.paginate(Bucket=self.bucket.name, Prefix=self.prefix):
-            for s3_object_data in response.get("Contents", []):
-                connection_id = s3_object_data["Key"][len(self.prefix) + 1 :]
-                yield connection_id
+        for s3_obj_summary in self.bucket.objects.filter(Prefix=self.prefix):
+            yield s3_obj_summary.key[len(self.prefix) + 1 :]
 
     def save(self, connection_id: str):
         """

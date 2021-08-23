@@ -1,5 +1,6 @@
 .venv
 artifacts
 .terraform
-terraform.tfstate.d
-.terraform.lock.hcl
+.terraform.*
+terraform.*
+

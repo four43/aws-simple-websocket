@@ -1,10 +1,8 @@
 #!/bin/bash
+set -e
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=./common.sh
 source "${DIR}/common.sh"
-
-api_gateway_log_group="$(tf_output api_gw_log_group)"
-lambda_log_group="$(tf_output lambda_log_group)"
 
 aws logs tail --since 1d --follow "$(tf_output api_gw_log_group)" &
 aws logs tail --since 1d --follow "$(tf_output lambda_log_group)" &

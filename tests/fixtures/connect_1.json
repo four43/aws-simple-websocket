@@ -1,0 +1,38 @@
+{
+	"headers": {
+		"Host": "test-api-id.execute-api.us-east-1.amazonaws.com",
+		"Sec-WebSocket-Key": "eaEh55nP989IBZniDsW5lw==",
+		"Sec-WebSocket-Version": "13",
+		"X-Amzn-Trace-Id": "Root=1-6123a66f-105777c8772360175c4171a7",
+		"X-Forwarded-For": "12.34.56.78",
+		"X-Forwarded-Port": "443",
+		"X-Forwarded-Proto": "https"
+	},
+	"multiValueHeaders": {
+		"Host": ["test-api-id.execute-api.us-east-1.amazonaws.com"],
+		"Sec-WebSocket-Key": ["eaEh55nP989IBZniDsW5lw=="],
+		"Sec-WebSocket-Version": ["13"],
+		"X-Amzn-Trace-Id": ["Root=1-6123a66f-105777c8772360175c4171a7"],
+		"X-Forwarded-For": ["12.34.56.78"],
+		"X-Forwarded-Port": ["443"],
+		"X-Forwarded-Proto": ["https"]
+	},
+	"requestContext": {
+		"routeKey": "$connect",
+		"eventType": "CONNECT",
+		"extendedRequestId": "EhbxcGz5IAMFwqQ=",
+		"requestTime": "23/Aug/2021:13:45:19 +0000",
+		"messageDirection": "IN",
+		"stage": "primary",
+		"connectedAt": 1629726319440,
+		"requestTimeEpoch": 1629726319438,
+		"identity": {
+			"sourceIp": "12.34.56.78"
+		},
+		"requestId": "EhbxcGz5IAMFwqQ=",
+		"domainName": "test-api-id.execute-api.us-east-1.amazonaws.com",
+		"connectionId": "EhbxcdD1IAMCLvQ=",
+		"apiId": "test-api-id"
+	},
+	"isBase64Encoded": false
+}

@@ -10,7 +10,8 @@ class AbstractConnectionRepo(metaclass=ABCMeta):
     @abstractmethod
     def delete(self, connection_id: str):
         """
-        Removes a `connection_id` from the store
+        Removes a `connection_id` from the store. Don't throw, this should act as desired state. If it's already
+        gone, fair enough.
         """
         pass
 

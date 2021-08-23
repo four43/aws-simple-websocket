@@ -53,6 +53,32 @@ understand AWS costs. This demo repo should cost almost nothing, however.
    your current region. Feel free to set `./deployment/enf.tf:init_api_gw_logging_role` to false if your account already
    has this setup
 1. Create the resources `terraform apply`
+1. Run `/util/lambda-deploy dev` to build and deploy the lambda code. There are no external dependencies, just `boto3`
+
+## Usage
+
+Contained in `./util` are a lot of small CLI scripts to allow us to interact with the system without bloating the core
+too much with things like static web pages for the app side.
+
+* **lambda-build** - builds a zip archive for deployment to Lambda
+
+* **lambda-deploy** - runs `lambda-build` and deploys the archive to the provided Lambda environment. Uses `terraform` 
+  to get the name of our Lambda function to deploy to
+
+* **send-data [json]** - Sends a JSON payload to connected clients via SNS Topic. Uses `terraform` to get the name of
+  our SNS Topic
+  
+* **tail-logs** - Watches logs for the API Gateway and Lambda function. Uses `terraform` to get the name of
+  our the log groups
+  
+* **connect** - Connect to the websocket using a small utility, [websocat](https://github.com/vi/websocat) 
+
+### Quick Example
+
+ 1. Deploy the stack using the above instructions.
+ 1. `./util/connect` to connect and listen to the websocket
+ 1. Using a new terminal session, `./util/send-data '{"hello": "world"}'`
+ 1. View that in your first terminal with connect running, you'll see `{"hello": "world"}`
 
 ## Improvements
 

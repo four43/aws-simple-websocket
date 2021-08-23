@@ -1,10 +1,9 @@
 #!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+set -e
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DIR"
 
 cd "../deployment"
-topic_arn="$(terraform output --raw input_sns_topic_arn)"
-
 aws sns publish \
-    --topic-arn "$topic_arn" \
+    --topic-arn "$(terraform output --raw input_sns_topic_arn)" \
     --message "$1"

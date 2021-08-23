@@ -3,6 +3,10 @@ output "ws_url" {
   value = aws_apigatewayv2_stage.lambda.invoke_url
 }
 
+output "lambda_function_name" {
+  value = aws_lambda_function.main.function_name
+}
+
 output "input_sns_topic_arn" {
   value = aws_sns_topic.input.arn
 }
