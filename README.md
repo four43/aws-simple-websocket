@@ -3,6 +3,8 @@
 Using AWS's API Gateway + Lambda + Python to run a simple websocket application. For learning/testing. The AWS Resources
 seemed overly complex and were missing some critical gotchas in setting up a system like this.
 
+![Example terminal showing usage](./docs/example.gif)
+
 Using the following for guidance:
 
 * [AWS Blog: Announcing WebSocket APIs in Amazon API Gateway](https://aws.amazon.com/blogs/compute/announcing-websocket-apis-in-amazon-api-gateway/)
