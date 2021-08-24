@@ -31,7 +31,7 @@ def test_delete_connection_id(s3_repo):
     assert s3_repo.bucket.called_ops == [
         {
             "method": "delete_objects",
-            "args": {"Delete": {"Objects": [{"Key": "abc123"}]}},
+            "args": {"Delete": {"Objects": [{"Key": "my-test-prefix/abc123"}]}},
         }
     ]
 

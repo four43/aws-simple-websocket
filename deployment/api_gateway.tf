@@ -26,9 +26,15 @@ resource "aws_apigatewayv2_route" "_disconnect" {
   target    = "integrations/${aws_apigatewayv2_integration.lambda_main.id}"
 }
 
-resource "aws_apigatewayv2_route" "sub_widget" {
+resource "aws_apigatewayv2_route" "_default" {
   api_id    = aws_apigatewayv2_api.main.id
-  route_key = "sub-widget"
+  route_key = "$default"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_main.id}"
+}
+
+resource "aws_apigatewayv2_route" "broadcast" {
+  api_id    = aws_apigatewayv2_api.main.id
+  route_key = "broadcast"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_main.id}"
 }
 

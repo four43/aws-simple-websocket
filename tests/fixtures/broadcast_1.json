@@ -1,0 +1,22 @@
+{
+	"requestContext": {
+		"routeKey": "broadcast",
+		"messageId": "Ek1SAfa4IAMCEyw=",
+		"eventType": "MESSAGE",
+		"extendedRequestId": "Ek1SAHkroAMFa6A=",
+		"requestTime": "24/Aug/2021:14:30:11 +0000",
+		"messageDirection": "IN",
+		"stage": "primary",
+		"connectedAt": 1629815233212,
+		"requestTimeEpoch": 1629815411027,
+		"identity": {
+			"sourceIp": "97.116.85.151"
+		},
+		"requestId": "Ek1SAHkroAMFa6A=",
+		"domainName": "7b8s192d6i.execute-api.us-east-1.amazonaws.com",
+		"connectionId": "Ek02Ofq8IAMCEyw=",
+		"apiId": "7b8s192d6i"
+	},
+	"body": "{\"action\": \"broadcast\", \"message\": \"Hello everyone!\"}\n",
+	"isBase64Encoded": false
+}
