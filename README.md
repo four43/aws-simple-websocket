@@ -82,6 +82,12 @@ too much with things like static web pages for the app side.
  1. Using a new terminal session, `./util/send-data '{"hello": "world"}'`
  1. View that in your first terminal with connect running, you'll see `{"hello": "world"}`
 
+Users can broadcast messages to other users as well, not just through SNS. With a connected client, send: 
+```json
+{"action": "broadcast", "message": "Good news, everyone!"}
+```
+You will then see: `{"message": "Good news, everyone!"}` in all the connected clients.
+
 ## Improvements
 
 1. Move from `print()` to `logging` module, for the sake of keeping this really simple, I left print in there
