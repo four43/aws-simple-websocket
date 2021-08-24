@@ -3,10 +3,10 @@ data "aws_iam_policy_document" "lambda_fn_assume_role" {
     actions = [
       "sts:AssumeRole",
     ]
-    effect  = "Allow"
+    effect = "Allow"
 
     principals {
-      type        = "Service"
+      type = "Service"
       identifiers = [
         "lambda.amazonaws.com"
       ]
@@ -29,8 +29,8 @@ resource "aws_iam_role_policy_attachment" "lambda_main" {
 data "aws_iam_policy_document" "lambda_rw_connection_store" {
   # Create/Read Websocket connection ID objects
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:DeleteObject"
@@ -41,8 +41,8 @@ data "aws_iam_policy_document" "lambda_rw_connection_store" {
   }
   # List all of the Websocket connection ID objects
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "s3:ListBucket",
     ]
     resources = [
@@ -52,8 +52,8 @@ data "aws_iam_policy_document" "lambda_rw_connection_store" {
 
   # Send a message to Websocket clients via "execute-api", a component of API Gateway
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "execute-api:ManageConnections"
     ]
     resources = [

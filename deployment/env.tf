@@ -5,9 +5,9 @@ locals {
 
   app_name_full = "${local.app_name}-${local.env}"
 
-  connection_store_prefix      = "active-connections"
+  connection_store_prefix = "active-connections"
 
   # For Region Wide API Gateway logging. Solves:
   # https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cloudwatch-logs/
-  init_api_gw_logging_role     = true
+  init_api_gw_logging_role = true
 }
